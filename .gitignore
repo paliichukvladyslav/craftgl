@@ -1,3 +1,4 @@
 build/
 builddir/
 *.o
+compile_commands.json

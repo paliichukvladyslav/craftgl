@@ -8,7 +8,9 @@ proj_inc = include_directories('include')
 sources = files(
   'main.cpp',
   'App.cpp',
-  'InputHandler.cpp'
+  'InputHandler.cpp',
+  'Shader.cpp',
+  'Mesh.cpp'
 )
 
 executable(
