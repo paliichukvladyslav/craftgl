@@ -32,26 +32,20 @@ void App::init_gl() {
 	glViewport(0, 0, width, height);
 }
 
+void App::init_engine() {
+	input = new InputHandler();
+	world = new World();
+	renderer = new Renderer();
+}
+
 void App::run() {
 	init_gl();
-	input = new InputHandler();
-
-	std::vector<float> vertices = {
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f,  0.5f, 0.0f
-	};
-	Mesh triangle(vertices);
-#include "shaders/vertex_shader.h"
-#include "shaders/fragment_shader.h"
-	Shader shader(vertex_glsl, vertex_glsl_len, fragment_glsl, fragment_glsl_len);
+	init_engine();
 
 	while(!glfwWindowShouldClose(window)) {
 		update();
 		render();
 
-	shader.use();
-	triangle.draw();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -59,15 +53,16 @@ void App::run() {
 
 void App::update() {
 	input->handle_input(window);
+	world->update();
 };
 
 void App::render() {
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	return;
+	renderer->render(world);
 }
 
 App::~App() {
 	glfwTerminate();
 	if (input) delete input;
+	if (world) delete world;
+	if (renderer) delete renderer;
 }

@@ -10,7 +10,9 @@ sources = files(
   'App.cpp',
   'InputHandler.cpp',
   'Shader.cpp',
-  'Mesh.cpp'
+  'Mesh.cpp',
+  'World.cpp',
+  'Renderer.cpp'
 )
 
 executable(

@@ -4,6 +4,8 @@
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include "InputHandler.h"
+#include "World.h"
+#include "Renderer.h"
 
 class App {
 private:
@@ -11,11 +13,14 @@ private:
 	int width, height;
 	const char *title;
 
-	InputHandler *input;
-
 	void init_gl();
+	void init_engine();
 	void update();
 	void render();
+
+	InputHandler *input;
+	World *world;
+	Renderer *renderer;
 public:
 	App(int width, int height, const char *title);
 	~App();

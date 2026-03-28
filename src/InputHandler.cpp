@@ -1,6 +1,5 @@
 #include "InputHandler.h"
 
-/* temporary implementation */
 void InputHandler::handle_input(GLFWwindow *window) {
 	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
