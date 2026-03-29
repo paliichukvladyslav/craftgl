@@ -3,12 +3,14 @@
 Mesh::Mesh(const std::vector<float> &vertices) {
 	vertex_count = vertices.size() / 3; /* x, y, z */
 
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
 	glGenBuffers(1, &vbo);
+
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
