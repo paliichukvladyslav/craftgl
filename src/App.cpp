@@ -7,14 +7,24 @@
 
 #include "App.h"
 
-void glfwError(int id, const char* description) {
+void glfw_err_cb(int id, const char *description) {
 	std::cerr << "GLFW Error " << id << ": " << description << "\n";
 }
 
-App::App(int width, int height, const char *title)  : width(width), height(height), title(title), window(nullptr) {}
+void glfw_resize_cb(GLFWwindow *window, int width, int height) {
+	App *app = static_cast<App*>(glfwGetWindowUserPointer(window));
+
+	if (app) {
+		app->on_resize(width, height);
+	} else {
+		std::cerr << "Failed to resize! No App? (" << width << ", " << height << ")\n";
+	}
+}
+
+App::App(int width, int height, const char *title)  : window(nullptr), width(width), height(height), title(title) {}
 
 void App::init_gl() {
-	glfwSetErrorCallback(glfwError);
+	glfwSetErrorCallback(glfw_err_cb);
 	if (!glfwInit()) throw std::runtime_error("Failed to init GLFW");
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -26,6 +36,8 @@ void App::init_gl() {
 	window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 	if (!window) throw std::runtime_error("Failed to create window");
 
+	glfwSetWindowUserPointer(window, this);
+	glfwSetFramebufferSizeCallback(window, glfw_resize_cb);
 	glfwMakeContextCurrent(window);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) throw std::runtime_error("Failed to initialize GLAD");
 
@@ -57,7 +69,13 @@ void App::update() {
 };
 
 void App::render() {
-	renderer->render(world);
+	renderer->render(world, width, height);
+}
+
+void App::on_resize(int width, int height) {
+	this->width = width;
+	this->height = height;
+	glViewport(0, 0, width, height);
 }
 
 App::~App() {

@@ -7,6 +7,10 @@
 #include "World.h"
 #include "Renderer.h"
 
+class App;
+
+void glfw_resize_cb(GLFWwindow *window, int width, int height);
+
 class App {
 private:
 	GLFWwindow *window;
@@ -17,6 +21,9 @@ private:
 	void init_engine();
 	void update();
 	void render();
+	void on_resize(int width, int height);
+
+	friend void glfw_resize_cb(GLFWwindow* window, int width, int height);
 
 	InputHandler *input;
 	World *world;

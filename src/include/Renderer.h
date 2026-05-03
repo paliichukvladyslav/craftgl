@@ -12,6 +12,6 @@ public:
 	Renderer();
 	~Renderer();
 
-	void render(World *world);
+	void render(World *world, int width, int height);
 };
 #endif
