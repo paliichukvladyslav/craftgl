@@ -20,13 +20,12 @@ void Renderer::render(World* the_world, int width, int height) {
 
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
 	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
-	glm::mat4 model = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
 
 	the_shader->setMat4("projection", projection);
 	the_shader->setMat4("view", view);
-	the_shader->setMat4("model", model);
 
 	for (Mesh* mesh : the_world->meshes) {
+		the_shader->setMat4("model", mesh->get_model_matrix());
 		mesh->draw();
 	}
 }
