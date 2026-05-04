@@ -3,62 +3,8 @@
 #include <GLFW/glfw3.h>
 
 World::World() {
-
-	glm::vec3 cube_color = {0.8f, 0.8f, 0.8f};
-	glm::vec2 dummy_uv = {0.0f, 0.0f};
-	float no_tex = -1.0f;
-
-	std::vector<Vertex> vertices = {
-		// Back face
-		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-
-		// Front face
-		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-
-		// Left face
-		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-
-		// Right face
-		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-
-		// Bottom face
-		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-
-		// Top face
-		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
-		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex}
-	};
-
-	meshes.push_back(new Mesh(vertices));
+	Mesh *grass_block = MeshFactory::create_grass_block(2.0f, 1.0f, 0.0f);
+	meshes.push_back(grass_block);
 	auto_rotate = false;
 }
 

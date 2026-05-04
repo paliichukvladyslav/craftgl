@@ -4,10 +4,12 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "World.h"
+#include "TextureArray.h"
 
 class Renderer {
 private:
 	Shader *the_shader;
+	TextureArray *block_textures;
 public:
 	Renderer();
 	~Renderer();

@@ -7,14 +7,24 @@
 
 Renderer::Renderer() {
 	the_shader = new Shader(vertex_glsl, vertex_glsl_len, fragment_glsl, fragment_glsl_len);
+
+	std::vector<std::string> textures = {
+		"assets/dirt.png",
+		"assets/grass_side.png",
+		"assets/grass_top.png"
+	};
+	block_textures = new TextureArray(textures);
+
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Renderer::render(World* the_world, int width, int height) {
+void Renderer::render(World *the_world, int width, int height) {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	the_shader->use();
+	the_shader->set_int("u_texture_array", 0);
+	block_textures->bind(0);
 
 	float aspect = (float)width / (float)height;
 
@@ -32,4 +42,5 @@ void Renderer::render(World* the_world, int width, int height) {
 
 Renderer::~Renderer() {
 	delete the_shader;
+	delete block_textures;
 }

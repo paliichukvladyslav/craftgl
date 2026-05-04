@@ -27,7 +27,10 @@ sources = files(
   'Mesh.cpp',
   'World.cpp',
   'Renderer.cpp',
-  'UI.cpp'
+  'UI.cpp',
+  'Image.cpp',
+  'TextureArray.cpp',
+  'MeshFactory.cpp'
 )
 
 executable(

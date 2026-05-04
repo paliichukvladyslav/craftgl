@@ -3,10 +3,11 @@
 
 #include <vector>
 #include "Mesh.h"
+#include "MeshFactory.h"
 
 class World {
 public:
-	std::vector<Mesh*> meshes;
+	std::vector<Mesh *> meshes;
 
 	World();
 	~World();
