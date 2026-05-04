@@ -1,7 +1,7 @@
 #include "Mesh.h"
 
-Mesh::Mesh(const std::vector<float> &vertices) {
-	vertex_count = vertices.size() / 3; /* x, y, z */
+Mesh::Mesh(std::vector<Vertex> &vertices) {
+	vertex_count = vertices.size();
 	position = glm::vec3(0.0f);
 	rotation = glm::vec3(0.0f);
 	scale = glm::vec3(1.0f);
@@ -12,10 +12,16 @@ Mesh::Mesh(const std::vector<float> &vertices) {
 	glGenBuffers(1, &vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, position));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, color));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, tex_coords));
+	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, tex_index));
+	glEnableVertexAttribArray(0); /* pos */
+	glEnableVertexAttribArray(1); /* color */
+	glEnableVertexAttribArray(2); /* uv */
+	glEnableVertexAttribArray(3); /* tex index */
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); 
 	glBindVertexArray(0);

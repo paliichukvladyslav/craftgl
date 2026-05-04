@@ -3,25 +3,61 @@
 #include <GLFW/glfw3.h>
 
 World::World() {
-	std::vector<float> vertices = {
-		-0.5f, -0.5f, -0.5f,   0.5f, -0.5f, -0.5f,   0.5f,  0.5f, -0.5f,
-		0.5f,  0.5f, -0.5f,  -0.5f,  0.5f, -0.5f,  -0.5f, -0.5f, -0.5f,
 
-		-0.5f, -0.5f,  0.5f,   0.5f, -0.5f,  0.5f,   0.5f,  0.5f,  0.5f,
-		0.5f,  0.5f,  0.5f,  -0.5f,  0.5f,  0.5f,  -0.5f, -0.5f,  0.5f,
+	glm::vec3 cube_color = {0.8f, 0.8f, 0.8f};
+	glm::vec2 dummy_uv = {0.0f, 0.0f};
+	float no_tex = -1.0f;
 
-		-0.5f,  0.5f,  0.5f,  -0.5f,  0.5f, -0.5f,  -0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,  -0.5f, -0.5f,  0.5f,  -0.5f,  0.5f,  0.5f,
+	std::vector<Vertex> vertices = {
+		// Back face
+		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
 
-		0.5f,  0.5f,  0.5f,   0.5f,  0.5f, -0.5f,   0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,   0.5f, -0.5f,  0.5f,   0.5f,  0.5f,  0.5f,
+		// Front face
+		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
 
-		-0.5f, -0.5f, -0.5f,   0.5f, -0.5f, -0.5f,   0.5f, -0.5f,  0.5f,
-		0.5f, -0.5f,  0.5f,  -0.5f, -0.5f,  0.5f,  -0.5f, -0.5f, -0.5f,
+		// Left face
+		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
 
-		-0.5f,  0.5f, -0.5f,   0.5f,  0.5f, -0.5f,   0.5f,  0.5f,  0.5f,
-		0.5f,  0.5f,  0.5f,  -0.5f,  0.5f,  0.5f,  -0.5f,  0.5f, -0.5f
+		// Right face
+		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+
+		// Bottom face
+		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f, -0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f, -0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+
+		// Top face
+		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{ 0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f,  0.5f,  0.5f}, cube_color, dummy_uv, no_tex},
+		{{-0.5f,  0.5f, -0.5f}, cube_color, dummy_uv, no_tex}
 	};
+
 	meshes.push_back(new Mesh(vertices));
 	auto_rotate = false;
 }

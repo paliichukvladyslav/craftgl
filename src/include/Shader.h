@@ -9,10 +9,15 @@
 class Shader {
 private:
 	GLuint id;
-	GLuint compile_shader(GLenum type, const unsigned char *code, int len, const std::string& type_name);
+	GLuint compile_shader(GLenum type, const unsigned char *code, int len, const std::string &type_name);
 public:
 	Shader(const unsigned char *v_code, int v_len, const unsigned char *f_code, int f_len);
-	void setMat4(const std::string &name, const glm::mat4 &mat);
+
+	void set_bool(const std::string &name, bool value);
+	void set_int(const std::string &name, int value);
+	void set_float(const std::string &name, float value);
+	void set_vec3(const std::string &name, const glm::vec3 &value);
+	void set_mat4(const std::string &name, const glm::mat4 &mat);
 
 	void use();
 };

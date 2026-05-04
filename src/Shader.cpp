@@ -2,8 +2,8 @@
 
 #include "Shader.h"
 
-GLuint Shader::compile_shader(GLenum type, const unsigned char *code, int len, const std::string& type_name) {
-	const GLchar* source = reinterpret_cast<const GLchar*>(code);
+GLuint Shader::compile_shader(GLenum type, const unsigned char *code, int len, const std::string &type_name) {
+	const GLchar *source = reinterpret_cast<const GLchar *>(code);
 	GLint length = static_cast<GLint>(len);
 
 	GLuint shader = glCreateShader(type);
@@ -48,6 +48,22 @@ void Shader::use() {
 	glUseProgram(id);
 }
 
-void Shader::setMat4(const std::string &name, const glm::mat4 &mat) {
+void Shader::set_bool(const std::string &name, bool value) {
+	glUniform1i(glGetUniformLocation(id, name.c_str()), (int)value);
+}
+
+void Shader::set_int(const std::string &name, int value) {
+	glUniform1i(glGetUniformLocation(id, name.c_str()), value);
+}
+
+void Shader::set_float(const std::string &name, float value) {
+	glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+}
+
+void Shader::set_vec3(const std::string &name, const glm::vec3 &value) {
+	glUniform3fv(glGetUniformLocation(id, name.c_str()), 1, glm::value_ptr(value));
+}
+
+void Shader::set_mat4(const std::string &name, const glm::mat4 &mat) {
 	glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
 }

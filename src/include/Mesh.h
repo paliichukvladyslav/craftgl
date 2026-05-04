@@ -6,13 +6,20 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "glad/glad.h"
 
+struct Vertex {
+	glm::vec3 position;
+	glm::vec3 color;
+	glm::vec2 tex_coords;
+	float tex_index; // -1 if none
+};
+
 class Mesh {
 private:
 	GLuint vao, vbo;
 	int vertex_count;
 	glm::vec3 position, rotation, scale;
 public:
-	Mesh(const std::vector<float> &vertices);
+	Mesh(std::vector<Vertex> &vertices);
 	~Mesh();
 	glm::mat4 get_model_matrix();
 	void draw();
