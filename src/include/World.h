@@ -12,5 +12,6 @@ public:
 	~World();
 
 	void update();
+	bool auto_rotate;
 };
 #endif

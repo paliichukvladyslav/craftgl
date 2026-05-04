@@ -6,6 +6,7 @@
 #include "InputHandler.h"
 #include "World.h"
 #include "Renderer.h"
+#include "UI.h"
 
 class App;
 
@@ -28,6 +29,7 @@ private:
 	InputHandler *input;
 	World *world;
 	Renderer *renderer;
+	UI *ui;
 public:
 	App(int width, int height, const char *title);
 	~App();

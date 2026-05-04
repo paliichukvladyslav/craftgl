@@ -7,6 +7,10 @@
 
 #include "App.h"
 
+#include "imgui.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
+
 void glfw_err_cb(int id, const char *description) {
 	std::cerr << "GLFW Error " << id << ": " << description << "\n";
 }
@@ -39,6 +43,7 @@ void App::init_gl() {
 	glfwSetWindowUserPointer(window, this);
 	glfwSetFramebufferSizeCallback(window, glfw_resize_cb);
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(0); /* disable vsync */
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) throw std::runtime_error("Failed to initialize GLAD");
 
 	glViewport(0, 0, width, height);
@@ -48,6 +53,7 @@ void App::init_engine() {
 	input = new InputHandler();
 	world = new World();
 	renderer = new Renderer();
+	ui = new UI(window);
 }
 
 void App::run() {
@@ -55,8 +61,13 @@ void App::run() {
 	init_engine();
 
 	while(!glfwWindowShouldClose(window)) {
+		ui->begin();
+
 		update();
 		render();
+
+		ui->render(world);
+		ui->end();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -79,8 +90,9 @@ void App::on_resize(int width, int height) {
 }
 
 App::~App() {
-	glfwTerminate();
+	if (ui) delete ui;
 	if (input) delete input;
 	if (world) delete world;
 	if (renderer) delete renderer;
+	glfwTerminate();
 }
