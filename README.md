@@ -1,3 +1,3 @@
 # craftgl
 
-![screenshot](1.png)
+![screenshot](grassblock.png)
